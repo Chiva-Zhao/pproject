@@ -20,22 +20,22 @@ except IOError as err:
 # data = [];    
 # for time in james:
 #     data.append(sanitize.sanitize(time))
-james = sorted([sanitize.sanitize(time) for time in james])
+james = sorted(set([sanitize.sanitize(time) for time in james]))
 
 # data.clear()
 # for time in julie:
 #     data.append(sanitize.sanitize(time))
-julie = sorted([sanitize.sanitize(time) for time in julie])
+julie = sorted(set([sanitize.sanitize(time) for time in julie]))
 
 # data.clear()
 # for time in mikey:
 #     data.append(sanitize.sanitize(time))
-mikey = sorted([sanitize.sanitize(time) for time in mikey])
+mikey = sorted(set([sanitize.sanitize(time) for time in mikey]))
 
 # data.clear()
 # for time in sarah:
 #     data.append(sanitize.sanitize(time))
-sarah = sorted([sanitize.sanitize(time) for time in sarah])
+sarah = sorted(set([sanitize.sanitize(time) for time in sarah]))
 print(james)
 print(julie)
 print(mikey)
