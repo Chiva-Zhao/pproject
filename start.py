@@ -5,18 +5,30 @@ Created on 4 Aug 2014
 '''
 # james = [];julie = [];mikey = [];sarah = [];
 import sanitize
-try:
-    with open("james.txt", "r") as jamesdata, open("julie.txt", "r") as juliedata, open("mikey.txt", "r") as mikeydata, open("sarah.txt", "r") as sarahdata:
-        for line in jamesdata:
-            james = line.strip().split(',')
-        for line in juliedata:
-            julie = line.strip().split(',')
-        for line in mikeydata:
-            mikey = line.strip().split(',')
-        for line in sarahdata:
-            sarah = line.strip().split(',')
-except IOError as err:
-    print(str(err))
+# try:
+#     with open("james.txt", "r") as jamesdata, open("julie.txt", "r") as juliedata, open("mikey.txt", "r") as mikeydata, open("sarah.txt", "r") as sarahdata:
+#         for line in jamesdata:
+#             james = line.strip().split(',')
+#         for line in juliedata:
+#             julie = line.strip().split(',')
+#         for line in mikeydata:
+#             mikey = line.strip().split(',')
+#         for line in sarahdata:
+#             sarah = line.strip().split(',')
+# except IOError as err:
+#     print(str(err))
+def get_coach_data(filename):
+    try:
+        with open(filename,'r') as f:
+            data = f.readline()
+            return data.strip().split(',')
+    except IOError as err:
+        print('File error' + str(err))
+        return None
+james = get_coach_data('james.txt')    
+julie = get_coach_data('julie.txt')
+mikey = get_coach_data('mikey.txt')
+sarah = get_coach_data('sarah.txt')
 # data = [];    
 # for time in james:
 #     data.append(sanitize.sanitize(time))
@@ -40,4 +52,3 @@ print(james)
 print(julie)
 print(mikey)
 print(sarah)
-
