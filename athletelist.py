@@ -36,7 +36,7 @@ james = get_coach_data('james2.txt')
 julie = get_coach_data('julie2.txt')
 mikey = get_coach_data('mikey2.txt')
 sarah = get_coach_data('sarah2.txt')
-
+ 
 print(james.name + "'s fastest times are: " + str(james.top3()))
 print(julie.name + "'s fastest times are: " + str(julie.top3()))
 print(mikey.name + "'s fastest times are: " + str(mikey.top3()))
