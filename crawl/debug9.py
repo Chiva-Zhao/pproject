@@ -25,6 +25,5 @@ with open("红杉0.csv", "w+", newline="\n", encoding="utf-8") as datacsv:
             c = row.find_all('td')[9].get_text()
             d = row.find_all('td')[10].get_text()
             e = row.find_all('td')[-1].get_text()
-            w = a + ', ' + c + ',' + d + ',' + e
-            print('写入->' + str(i) + w.replace('\n', ''))
-            csvwriter.writerow([w])
+            # print('写入->' + str(i) + w.replace('\n', ''))
+            csvwriter.writerow([a.replace('\n',''),c.replace('\n',''),d.replace('\n',''),e.replace('\n','')])
