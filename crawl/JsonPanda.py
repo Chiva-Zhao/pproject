@@ -14,8 +14,10 @@ myjson = json.loads(data)
 print(myjson)
 # users = myjson['data']['data'][0]['user']
 users = json_normalize(myjson['data']['data'])
+invest = json_normalize(myjson['data']['data'][0]['investCom'])
 # siblings = DataFrame(users,columns=['name','intro'])
 # print(users['user.name'])
 # print(users['user.intro'])
 df = DataFrame(users, columns=['user.name', 'user.intro'])
-print(df)
+df2 = DataFrame(invest,columns=['brief','fundId','industry','name']);
+print(df2)
