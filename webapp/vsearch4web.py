@@ -9,8 +9,8 @@ app = Flask(__name__)
 #     return redirect("/entry")
 
 
-@app.route("/search4_1", methods=['post'])
-def do_search1() -> str:
+@app.route("/search4_0", methods=['post'])
+def do_search0() -> str:
     phrase = request.form['phrase']
     letters = request.form['letters']
     return str(search4letters(phrase, letters))
@@ -37,14 +37,31 @@ def log_request(req: 'flask_request', res: str) -> None:
         # print(req.remote_addr, file=reqlog, end='|')
         # print(req.user_agent, file=reqlog, end='|')
         # print(req, res, file=reqlog)
-        print(req.form, req.remote_user, req.user_agent, file=reqlog, end='|')
+        print(req.form, req.remote_user, req.user_agent, res, sep='|', file=reqlog)
+
+
+@app.route("/viewlog_0")
+def view_the_log0() -> str:
+    contents = []
+    with open('req.log') as log:
+        for line in log:
+            contents.append([])
+            for item in line.split('|'):
+                contents[-1].append(escape(item))
+    return str(contents)
 
 
 @app.route("/viewlog")
-def view_the_log() -> str:
+def view_the_log() -> 'html':
+    contents = []
     with open('req.log') as log:
-        contents = escape(log.read())
-    return contents
+        for line in log:
+            contents.append([])
+            for item in line.split('|'):
+                contents[-1].append(escape(item))
+    return render_template('viewlog.html', the_title='查看日志',
+                           the_row_titles=['表单数据', 'IP', '客户端', '结果'],
+                           the_data=contents)
 
 
 if (__name__ == '__main__'):
