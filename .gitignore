@@ -26,7 +26,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must ends with two \r.
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -34,3 +35,22 @@ Icon
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/pproject.iml
+.idea/vcs.xml
+.idea/workspace.xml
+__pycache__/
+crawl/cyb03l.csv
+crawl/cyb06.csv
+crawl/ghostdriver.log
+crawl/rw.csv
+crawl/sj12.csv
+crawl/sj15.csv
+crawl/sj6.csv
+"crawl/\347\272\242\346\235\2110.csv"
+todo.txt
+tusharedemo/__pycache__/
+webapp/__pycache__/
+webapp/req.log
