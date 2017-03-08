@@ -90,7 +90,5 @@ cost_sampel = cost_function(target)
 # 使用Brent算法求解
 impliedVol = brentq(cost_sampel, 0.01, 0.5)
 
-print
-u'真实波动率： %.2f' % (vol * 100,) + '%'
-print
-u'隐含波动率： %.2f' % (impliedVol * 100,) + '%'
+print(u'真实波动率： %.2f' % (vol * 100,) + '%')
+print(u'隐含波动率： %.2f' % (impliedVol * 100,) + '%')
