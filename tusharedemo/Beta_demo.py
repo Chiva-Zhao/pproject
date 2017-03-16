@@ -26,6 +26,7 @@ def computeYield(code, market, date):
     # print("股票" + code + "收益率", ri)
     # print("市场收益率", rm)
     covi = np.cov(ri, rm)
+    print(covi)
     varm = np.var(rm)
     # print("协方差", covi)
     csvwriter.writerow([code, covi[0][1] / varm])

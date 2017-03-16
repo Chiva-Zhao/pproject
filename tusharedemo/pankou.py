@@ -1,10 +1,12 @@
 import tushare as ts
-import numpy as np
-import pandas as pd
-import csv
-
-datacsv = open("pk2.csv", "w+", newline="\n", encoding="utf-8")
-csvwriter = csv.writer(datacsv, dialect=("excel"))
+from webapp.DBUtils import UseDatabase
+from math import isnan
+# datacsv = open("pk2.csv", "w+", newline="\n", encoding="utf-8")
+# csvwriter = csv.writer(datacsv, dialect=("excel"))
+config = {'host': '127.0.0.1',
+          'user': 'zzh',
+          'password': 'zzh',
+          'database': 'pydb', }
 
 
 def pankou(name):
@@ -29,8 +31,16 @@ def pankou(name):
     zx = other_sum / pan_sum
     # print('股票',code,(sell_sum, buy_sum, other_sum)/pan_sum)
     print('股票', name, mp, sp, zx)
-    csvwriter.writerow([str(name), name, mp, sp, zx])
-    # pankou('600848')
+    if isnan(mp):
+        return
+    with UseDatabase(config) as cursor:
+        _SQL = """insert into pankou
+        (name, mp, sp, zx)
+        values
+        (%s, %s, %s, %s)"""
+        cursor.execute(_SQL, (name, mp, sp, zx))
+        # csvwriter.writerow([str(name), mp, sp, zx])
+        # pankou('600848')
 
 
 if __name__ == '__main__':
