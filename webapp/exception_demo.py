@@ -29,7 +29,7 @@ def do_search() -> 'html':
     try:
         log2db_request(request, rst)
     except Exception as exp:
-        print('***** Logging failed with this error:', str(err))
+        print('***** Logging failed with this error:', str(exp))
     return render_template('results.html', the_title='查询结果', the_phrase=phrase, the_letters=letters, the_results=rst)
 
 
