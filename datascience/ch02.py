@@ -80,7 +80,6 @@ def plotting(pivedu):
                      color=my_colors)
     ax.legend(loc='center left', bbox_to_anchor=(1, .5))
 
-
 if (__name__ == '__main__'):
     edu = pd.read_csv('educ_figdp_1_Data.csv', na_values=':', usecols=['TIME', 'GEO', 'Value'])
-    rank(edu)
+    plotting(edu)
