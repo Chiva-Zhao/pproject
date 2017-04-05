@@ -1,0 +1,5 @@
+hello,this is python test
+what's python?
+Can you teach me about python?
+Oh,no i am good at java.
+python is no my job
