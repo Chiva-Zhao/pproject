@@ -11,7 +11,7 @@ with open("gssmz.csv", "w+", newline="\n", encoding="utf-8") as datacsv:
     driver.get('http://www.licai.com/simu/jingli.html')
     for i in range(19):
         driver.execute_script("window.scrollBy(0," + str(i * 1000 + 2000) + ")")
-        time.sleep(3)
+        # time.sleep(3)
         if i == 18:
             count = 0
             data = driver.page_source
@@ -57,10 +57,10 @@ with open("gssmz.csv", "w+", newline="\n", encoding="utf-8") as datacsv:
                     list1 = ''
                 if list1 == '':
                     continue
-                if list1.find_all('div', class_='cont c01') and list1.find_all:
-                    print('list1 hello')
-                else:
-                    pass
+                # if list1.find_all('div', class_='cont c01') and list1.find_all:
+                #     print('list1 hello')
+                # else:
+                #     pass
                 for rw in list1.find_all('div', class_='cont c01'):
                     try:
                         y = ''
@@ -76,10 +76,10 @@ with open("gssmz.csv", "w+", newline="\n", encoding="utf-8") as datacsv:
                     list2 = ''
                 if list2 == '':
                     continue
-                if list2.find_all('div', class_='cont c02') and list2.find_all:
-                    print('list2 hello')
-                else:
-                    pass
+                # if list2.find_all('div', class_='cont c02') and list2.find_all:
+                #     print('list2 hello')
+                # else:
+                #     pass
                 for rw in list2.find_all('div', class_='cont c02'):
                     try:
                         d = ''
@@ -92,7 +92,7 @@ with open("gssmz.csv", "w+", newline="\n", encoding="utf-8") as datacsv:
                 try:
                     list3 = soup.find(id="jj3")
                     if list3 and list3.find_all('div', class_='cont c03') and list3.find_all:
-                        print('list3 hello')
+                        # print('list3 hello')
                         for rw in list3.find_all('div', class_='cont c03'):
                             try:
                                 x = ''
@@ -109,10 +109,10 @@ with open("gssmz.csv", "w+", newline="\n", encoding="utf-8") as datacsv:
                 try:
                     list4 = soup.find(id="jj4")
                     if list4:
-                        if list4.find_all('div', class_='cont c04') and list4.find_all:
-                            print('list4 hello')
-                        else:
-                            pass
+                        # if list4.find_all('div', class_='cont c04') and list4.find_all:
+                        #     print('list4 hello')
+                        # else:
+                        #     pass
                         for nm in list4.find_all('div', class_='cont c04'):
                             try:
                                 q = ''
