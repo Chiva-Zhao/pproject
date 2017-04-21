@@ -59,6 +59,8 @@ class Person:
     @first_name.setter
     def first_name(self, value):
         self._first_name = value
+
+
 # 不要写这种没有做任何其他额外操作的 property。首先，它会让你的代码变得很
 # 臃肿，并且还会迷惑阅读者。其次，它还会让你的程序运行起来变慢很多。最后，这
 # 样的设计并没有带来任何的好处。特别是当你以后想给普通 attribute 访问添加额外
@@ -66,7 +68,33 @@ class Person:
 # attribute 的代码还是保持原样。
 # Properties 还是一种定义动态计算 attribute 的方法。这种类型的 attributes 并不会
 # 被实际的存储，而是在需要的时候计算出来。比如：
+import math
 
+
+class Circle:
+    def __init__(self, radius):
+        self.radius = radius
+
+    @property
+    def area(self):
+        return math.pi * self.radius ** 2
+
+    @property
+    def diameter(self):
+        return self.radius ** 2
+
+    @property
+    def perimeter(self):
+        return 2 * math.pi * self.radius
+
+
+# 在这里，我们通过使用 properties，将所有的访问接口形式统一起来，对半径、直
+# 径、周长和面积的访问都是通过属性访问，就跟访问简单的 attribute 是一样的。如果
+# 不这样做的话，那么就要在代码中混合使用简单属性访问和方法调用。下面是使用的实例：
+c = Circle(4.0)
+c.radius
+c.area
+c.perimeter
 
 
 # 在实现一个 property 的时候，底层数据 (如果有的话) 仍然需要存储在某个地方。
@@ -97,3 +125,33 @@ class Person:
 
     # Make a property from existing get/set methods
     name = property(get_first_name, set_first_name, del_first_name)
+
+
+# 最后一点，不要像下面这样写有大量重复代码的 property 定义：
+class Person:
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    @property
+    def first_name(self):
+        return self._first_name
+
+    @first_name.setter
+    def first_name(self, value):
+        if not isinstance(value, str):
+            raise TypeError('Expected a string')
+        self._first_name = value
+
+    # Repeated property code, but for a different name (bad!)
+    @property
+    def last_name(self):
+        return self._last_name
+
+    @last_name.setter
+    def last_name(self, value):
+        if not isinstance(value, str):
+            raise TypeError('Expected a string')
+        self._last_name = value
+# 重复代码会导致臃肿、易出错和丑陋的程序。好消息是，通过使用装饰器或闭包
+# 有很多种更好的方法来完成同样的事情
