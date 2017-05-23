@@ -48,7 +48,7 @@ class NNBase:
         self._tf_bias.append(self._get_b(b_shape))
 
     def _get_rs(self, x, y=None):
-        _cache = self._layers[0].activate(x, self._tf_weights[0], self._tf_bias[0])
+        _caczhe = self._layers[0].activate(x, self._tf_weights[0], self._tf_bias[0])
         for i, layer in enumerate(self._layers[1:]):
             if i == len(self._layers) - 2:
                 if y is None:
