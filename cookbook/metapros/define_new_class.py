@@ -59,3 +59,47 @@ Stock = collections.namedtuple('Stock', ['name', 'shares', 'price'])
 print(Stock)
 # namedtuple() 使用 exec() 而不是上面介绍的技术。但是，下面通过一个简单的变
 # 化，我们直接创建一个类：
+import operator, types, sys
+
+
+def named_tuple(classname, fieldnames):
+    # Populate a dictionary of field property accessors
+    cls_dict = {name: property(operator.itemgetter(n))
+                for n, name in enumerate(fieldnames)}
+
+    # Make a __new__ function and add to the class dict
+    def __new__(cls, *args):
+        if len(args) != len(fieldnames):
+            raise TypeError('Expected {} arguments'.format(len(fieldnames)))
+        return tuple.__new__(cls, args)
+
+    cls_dict['__new__'] = __new__
+    # make the class
+    cls = types.new_class(classname, (tuple,), {}, lambda ns: ns.update(cls_dict))
+    # Set the module to that of the caller
+    cls.__module__ = sys._getframe(1).f_globals['__name__']
+    return cls
+
+
+# 这段代码的最后部分使用了一个所谓的” 框架魔法”，通过调用 sys. getframe()
+# 来获取调用者的模块名。下面的例子演示了前面的代码是如何工作的：
+Point = named_tuple('Point', ['x', 'y'])
+print(Point)
+p = Point(4, 5)
+print(len(p))
+print(p.x, p.y)
+# p.x=2 AttributeError: can't set attribute
+print('%s %s' % p)
+# 这项技术一个很重要的方面是它对于元类的正确使用。你可能像通过直接实例化一
+# 个元类来直接创建一个类：
+Stock = type('Stock', (), cls_dict)
+# 这种方法的问题在于它忽略了一些关键步骤，比如对于元类中 prepare () 方法
+# 的调用。通过使用 types.new class() ，你可以保证所有的必要初始化步骤都能得到
+# 执行。比如， types.new class() 第四个参数的回调函数接受 prepare () 方法返回
+# 的映射对象
+# 如果你仅仅只是想执行准备步骤，可以使用 types.prepare class() 。例如：
+import types
+
+metaclass, kwargs, ns = types.prepare_class('Stock', (), {'metaclass': type})
+# 它会查找合适的元类并调用它的 prepare () 方法。然后这个元类保存它的关键
+# 字参数，准备命名空间后被返回。
