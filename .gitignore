@@ -55,3 +55,4 @@ tusharedemo/__pycache__/
 webapp/__pycache__/
 webapp/req.log
 .idea/dataSources.local.xml
+.idea/
