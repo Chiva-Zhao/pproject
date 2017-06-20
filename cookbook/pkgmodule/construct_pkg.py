@@ -14,9 +14,9 @@
 #         png.py
 #         jpg.py
 # 一旦你做到了这一点，你应该能够执行各种 import 语句，如下：
-import graphics.primitive.line
-from graphics.primitive import line
-import graphics.formats.jpg as jpg
+# import graphics.primitive.line
+# from graphics.primitive import line
+# import graphics.formats.jpg as jpg
 # 定义模块的层次结构就像在文件系统上建立目录结构一样容易。文件 init .py 的
 # 目的是要包含不同运行级别的包的可选的初始化代码。举个例子，如果你执行了语句
 # import graphics，文件 graphics/ init .py 将被导入, 建立 graphics 命名空间的内容。
