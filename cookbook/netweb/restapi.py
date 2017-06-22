@@ -167,7 +167,7 @@ class WSGIApplication:
     def __init__(self):
         pass
 
-    def __call__(self, environ, start_response)
+    def __call__(self, environ, start_response):
         pass
 
 
