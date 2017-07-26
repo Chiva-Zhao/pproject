@@ -74,4 +74,30 @@ sess.run(sequence_var.initializer)
 print(sess.run(linear_var))
 print(sess.run(sequence_var))
 
-# Random Number Tensors
+# Random Number Tensors-We can also initialize tensors that come from random numbers like the following.
+rnorm_var= tf.random_normal([row_dim,col_dim],mean=0.0,stddev=1.0)
+runif_var = tf.random_uniform([row_dim, col_dim], minval=0, maxval=4)
+print(sess.run(rnorm_var))
+print(sess.run(runif_var))
+
+# Visualizing the Variable Creation in TensorBoard
+# To visualize the creation of variables in Tensorboard (covered in more detail in Chapter 11),
+# we will reset the computational graph and create a global initializing operation.
+# Reset graph
+ops.reset_default_graph()
+# start a graph session
+sess = tf.Session()
+# Create variable
+my_var = tf.Variable(tf.zeros([1,20]))
+# Add summaries to tensorboard
+merged = tf.summary.merge_all()
+# Initialize graph writer:
+writer = tf.summary.FileWriter("variable_logs", graph=sess.graph)
+# Initialize operation
+initialize_op = tf.global_variables_initializer()
+# Run initialization of variable
+sess.run(initialize_op)
+# We now run the following command in our command prompt:
+# tensorboard --logdir=/tmp
+# And it will tell us the URL we can navigate our browser to to see Tensorboard. The default should be:
+# http://0.0.0.0:6006/
