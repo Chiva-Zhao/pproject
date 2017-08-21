@@ -57,3 +57,27 @@ for i in range(1500):
     if (i + 1) % 100 == 0:
         print('Step #' + str(i + 1) + ' A = ' + str(sess.run(A)) + ' b = ' + str(sess.run(b)))
         print('Loss = ' + str(temp_loss))
+# Retrieve the optimal coefficients (slope and intercept).
+# Get the optimal coefficients
+[slope] = sess.run(A)
+[y_intercept] = sess.run(b)
+# Get best fit line
+best_fit = []
+for i in x_vals:
+    best_fit.append(slope * i + y_intercept)
+# Here is matplotlib code to plot the best fit Demming regression line and the Demming Loss.
+# Plot the result
+plt.plot(x_vals, y_vals, 'o', label='Data Points')
+plt.plot(x_vals, best_fit, 'r-', label='Best fit line', linewidth=3)
+plt.legend(loc='upper left')
+plt.title('Sepal Length vs Pedal Width')
+plt.xlabel('Pedal Width')
+plt.ylabel('Sepal Length')
+plt.show()
+
+# Plot loss over time
+plt.plot(loss_vec, 'k-')
+plt.title('Demming Loss per Generation')
+plt.xlabel('Iteration')
+plt.ylabel('Demming Loss')
+plt.show()
