@@ -21,3 +21,18 @@ x = tf.constant(np.array([[1, 2], [3, 4]]))
 axis0 = tf.reduce_sum(x, axis=0)  # 将会得到值为 [ 4 6 ] 的 Tensor
 axis1 = tf.reduce_sum(x, axis=1)  # 将会得到值为 [ 3 7 ] 的 Tensor
 print(axis0, axis1)
+t = tf.constant([1, 2, 3, 4, 5, 6, 7, 8, 9])
+sess.run(tf.reshape(t, [3, 3]))
+t1 = tf.constant([[[1, 1], [2, 2]],
+                  [[3, 3], [4, 4]]])
+sess.run(tf.reshape(t1, [2, 4]))
+t2 = tf.constant([[[1, 1, 1],
+                   [2, 2, 2]],
+                  [[3, 3, 3],
+                   [4, 4, 4]],
+                  [[5, 5, 5],
+                   [6, 6, 6]]])
+sess.run(tf.reshape(t2, [-1]))
+sess.run(tf.reshape(t2, [2, -1]))
+sess.run(tf.reshape(t2, [-1, 9]))
+sess.run(tf.reshape(t2, [2, -1, 3]))
