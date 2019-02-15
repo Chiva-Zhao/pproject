@@ -3,13 +3,13 @@
 # 使用包的相对导入，使一个的模块导入同一个包的另一个模块。举个例子，假设在你
 # 的文件系统上有 mypackage 包，组织如下：
 # mypackage/
-#     __init__.py
+#     line_reg.py
 #     A/
 # __      init__.py
 #         spam.py
 #         grok.py
 #     B/
-#         __init__.py
+#         line_reg.py
 #         bar.py
 # 如果模块 mypackage.A.spam 要导入同目录下的模块 grok，它应该包括的 import
 # 语句如下：

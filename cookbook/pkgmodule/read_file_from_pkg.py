@@ -2,7 +2,7 @@
 # 包中包含代码需要去读取的数据文件。需要尽可能地用最便捷的方式来做这件事
 # 假设你的包中的文件组织成如下：
 # mypackage/
-#     __init__.py
+#     line_reg.py
 #     somedata.dat
 #     spam.py
 # 现在假设 spam.py 文件需要读取 somedata.dat 文件中的内容。你可以用以下代码

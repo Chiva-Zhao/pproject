@@ -14,7 +14,7 @@ class B(A):
 # 假设你想 mymodule.py 分为两个文件，每个定义的一个类。要做到这一点，首先
 # 用 mymodule 目录来替换文件 mymodule.py,创建以下文件：
 # mymodule/
-#     __init__.py
+#     line_reg.py
 #     a.py
 #     b.py
 # 在 a.py 文件中插入以下代码：
@@ -29,7 +29,7 @@ class B(A):
 #     def bar(self):
 #         print('B.bar')
 # 最后，在 init .py 中，将 2 个文件粘合在一起：
-# __init__.py
+# line_reg.py
 # from .a import A
 # from .b import B
 # 如果按照这些步骤，所产生的包 MyModule 将作为一个单一的逻辑模块：
@@ -57,7 +57,7 @@ class B(A):
 # 作为这一章节的延伸，将介绍延迟导入。
 # 如图所示， init .py 文件一次导入所有必需的组件的。但是对于一个很大的模块，
 #可能你只想组件在需要时被加载。要做到这一点， init .py 有细微的变化：
-# __init__.py
+# line_reg.py
 # def A():
 #     from .a import A
 #         return A()
