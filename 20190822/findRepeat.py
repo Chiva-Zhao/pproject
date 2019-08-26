@@ -11,9 +11,5 @@ print(dup1)
 # 交集
 valid = {'yellow', 'red', 'blue', 'green', 'black'}
 input_set = {'red', 'brown'}
-# print(valid.intersection(input_set))
-print(input_set.difference(valid))
-
-valid = {'yellow', 'red', 'blue', 'green', 'black'}
-input_set = {'red', 'brown'}
+print(valid.intersection(input_set))
 print(input_set.difference(valid))
