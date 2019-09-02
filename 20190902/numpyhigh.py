@@ -30,3 +30,29 @@ train, test = data3[:split, :], data3[split:, :]
 print(train, test)
 
 # Array Reshaping
+# Reshape 1D to 2D Array
+reshaped = data.reshape((data.shape[0], 1))
+print(reshaped)
+print(reshaped.shape)
+# Reshape 2D to 3D Array
+reshaped2 = data2.reshape((data2.shape[0], data2.shape[1], 1))
+print(reshaped2)
+print(reshaped2.shape)
+# dot multiplication
+a = array([1, 2, 3])
+b = array([1, 2, 3])
+print(a.dot(b))
+c = 5 * a
+print(c)
+# L1 norm
+from numpy.linalg import norm
+
+L1 = norm(a, 1)
+# L2 norm
+L2 = norm(a, 2)
+print(L1, L2)
+# max norm
+from math import inf
+
+LMax = norm(a, inf)
+print(LMax)
