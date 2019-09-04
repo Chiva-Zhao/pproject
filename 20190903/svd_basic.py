@@ -1,6 +1,13 @@
 from numpy import array, zeros, diag
 from numpy.linalg import inv, svd, pinv
-
+# The Singular-Value Decomposition, or SVD for short, is a matrix decomposition method for
+# reducing a matrix to its constituent parts in order to make certain subsequent matrix calculations
+# simpler. For the case of simplicity we will focus on the SVD for real-valued matrices and ignore
+# the case for complex numbers.
+# A = U · Σ · V T
+# Where A is the real m × n matrix that we wish to decompose, U is an m × m matrix, Σ
+# represented by the uppercase Greek letter sigma) is an m × n diagonal matrix, and V T is the V
+# transpose of an n × n matrix where T is a superscript
 A = array([
     [1, 2],
     [3, 4],

@@ -2,7 +2,7 @@ from numpy import array
 from numpy.linalg import qr, cholesky
 from scipy.linalg import lu
 
-# LU Decomposition
+# The LU decomposition is for square matrices and decomposes a matrix into L and U components
 A = array([
     [1, 2, 3],
     [4, 5, 6],
@@ -13,7 +13,9 @@ print(L)
 print(U)
 B = P.dot(L).dot(U)
 print(B)
-# QR Decomposition
+# The QR decomposition is for n × m matrices (not limited to square matrices) and decomposes
+# a matrix into Q and R components.
+# A = Q · R
 A = array([
     [1, 2],
     [3, 4],
