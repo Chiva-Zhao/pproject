@@ -72,23 +72,6 @@ def _random_date(start, date_count):
 
 
 df = generate_sample_data(row_count=1000)
-# basic information
-print("Number of rows::", df.shape[0])
-print("Number of columns::", df.shape[1])
-print("Column Names::", df.columns.values.tolist())
-print("Column Data Types::\n", df.dtypes)
-
-# some missing value row/columns
-print("Columns with Missing Values::", df.columns[df.isnull().any()].tolist())
-print("Number of rows with Missing Values::", len(df.isnull().any(1).to_numpy().nonzero()[0].tolist()))
-print("Sample Indices with missing data::", df.isnull().any(1).to_numpy().nonzero()[0].tolist()[0:5])
-
-print("General Stats::")
-print(df.info())
-print("Summary Stats::")
-print(df.describe())
-
-
 # Dataset with columns renamed
 def cleanup_column_names(df: pd.DataFrame, rename_dict={}, inplaced=True):
     """
@@ -108,32 +91,6 @@ def cleanup_column_names(df: pd.DataFrame, rename_dict={}, inplaced=True):
 
 
 cleanup_column_names(df)
-print("Dataframe columns:\n{}".format(df.columns.tolist()))
-# Sort Rows on defined attributes
-df.sort_values(['serial_no', 'price'], ascending=[True, False]).head()
-# Rearrange Columns in a Dataframe
-df[['serial_no', 'date', 'user_id', 'user_type', 'product_id', 'quantity_purchased', 'price']].head()
-# Filtering Columns
-# print 10 values from column at index 3
-print(df.iloc[:, 3].values[0:10])
-print("Using Column Name::")
-print(df.quantity_purchased.values)
-print("Using Column Data Type::")
-print(df.select_dtypes(include=['float64']).values[:, 0])
-# Filtering Rows
-print("Select Specific row indices::")
-print(df.iloc[[10, 501, 20]])
-print("Excluding Specific Row indices::")
-print(df.drop([0, 24, 51], axis=0).head())
-print("Subsetting based on logical condition(s)::")
-print(df[df.quantity_purchased > 25].head())
-print("Subsetting based on offset from top (bottom)::")
-print(df[100:].head())  # df.tail(-100)
-
-# Typecasting
-df['date'] = pd.to_datetime(df.date)
-print(df.date)
-
 
 # Transformations
 def expand_user_type(type):
@@ -146,33 +103,39 @@ def expand_user_type(type):
     else:
         return 'error'
 
-
+df['date'] = pd.to_datetime(df.date)
 df['user_class'] = df['user_type'].map(expand_user_type)
 df['purchase_week'] = df[['date']].applymap(lambda dt: dt.week if not pd.isnull(dt) else 0)
-df.select_dtypes(include=['number']).apply(lambda x: x.max() - x.min())
 
-# Imputing Missing Values
-print("Drop Rows with missing dates::")
-# Drop Rows with missing dates
-df_dropped = df.dropna(subset=['date'])
-print("Fill Missing Price values with mean price::")
-df_dropped['price'].fillna(np.round(df['price'].mean(), 2), inplace=True)
-print("Fill Missing user_type values with value from previous row (forward fill) ::")
-df_dropped['user_type'].fillna(method='ffill', inplace=True)
-print("Fill Missing user_type values with value from next row (backward fill) ::")
-df_dropped['user_type'].fillna(method='bfill', inplace=True)
-
-# Handling Duplicates
-# sample duplicates
-df_dropped[df_dropped.duplicated(subset=['serial_no'])]
-df_dropped.drop_duplicates(subset=['serial_no'], inplace=True)
-# Remove rows which have less than 3 attributes with non-missing data
-print("Shape of df={}".format(df.dropna(thresh=3).shape))
-# Handling Categorical Data
-# using map to dummy encode
-type_map = {'a': 0, 'b': 1, 'c': 2, 'd': 3, np.NAN: -1}
-df['encoded_user_type'] = df.user_type.map(type_map)
-# using get_dummies to one hot encode
-print(pd.get_dummies(df, columns=['user_type']).head())
-# Random Sampling data from DataFrame
-df.sample(frac=0.2, replace=True, random_state=42)
+# Normalizing Numeric Values
+# Normalize price values using Min-Max Scaler
+df_normalized = df.dropna().copy()
+min_max_scaler = preprocessing.MinMaxScaler()
+np_scaled = min_max_scaler.fit_transform(df_normalized['price'].values.reshape(-1, 1))
+df_normalized['normalized_price'] = np_scaled.reshape(-1, 1)
+# Normalize quantity purchased values using Robust Scaler
+df_normalized = df.dropna().copy()
+robust_scaler = preprocessing.RobustScaler()
+rs_scaled = robust_scaler.fit_transform(df_normalized['quantity_purchased'].values.reshape(-1, 1))
+df_normalized['quantity_purchased'] = rs_scaled.reshape(-1, 1)
+# Condition based aggregation
+print("Mean price of items purchased by user_type=a :: {}".format(df['price'][df['user_type'] == 'a'].mean()))
+# Condtion based counts
+print(df['purchase_week'].value_counts())
+# Group By certain attributes
+print(df.groupby(['user_class'])['quantity_purchased'].sum())
+# Group By with different aggregate functions
+print(df.groupby(['user_class'])['quantity_purchased'].agg([np.sum, np.mean, np.count_nonzero]))
+# Group by specific aggregate functions for each attribute
+df.groupby(['user_class', 'user_type']).agg({'price': np.mean, 'quantity_purchased': np.max})
+# Group by with multiple agg for each attribute
+df.groupby(['user_class', 'user_type']).agg({'price': {
+    'total_price': np.sum,
+    'mean_price': np.mean,
+    'variance_price': np.std,
+    'count': np.count_nonzero},
+    'quantity_purchased': np.sum})
+# pivot tables
+df.pivot_table(index='date', columns='user_type', values='price', aggfunc=np.mean)
+# Stack a Dataframe
+df.stack()
