@@ -178,3 +178,59 @@ if __name__ == '__main__':
     plt.axis('tight')
     plt.title('Tight Axis')
     plt.show()
+
+    # manual
+    plt.plot(x, y, 'r', x, z, 'g', x, w, 'b')
+    plt.axis([0, 2, -1, 2])
+    plt.title('Manual Axis Range')
+    plt.show()
+
+    # Manual ticks
+    plt.plot(x, y)
+    ax = plt.gca()
+    ax.xaxis.set_ticks(np.arange(-2, 2, 1))
+    plt.grid(True)
+    plt.title("Manual ticks on the x-axis")
+    plt.show()
+
+    # minor ticks
+    plt.plot(x, z)
+    plt.minorticks_on()
+    ax = plt.gca()
+    ax.yaxis.set_ticks(np.arange(0, 5))
+    ax.yaxis.set_ticklabels(["min", 2, 4, "max"])
+    plt.title("Minor ticks on the y-axis")
+    plt.show()
+
+    # scaling
+    plt.plot(x, y)
+    ax = plt.gca()
+    # values: log, logit, symlog
+    ax.set_yscale("log")
+    plt.grid(True)
+    plt.title("Log Scaled Axis")
+    plt.show()
+
+    # annotations
+    y = x ** 2
+    min_x = 0
+    min_y = min_x ** 2
+
+    plt.plot(x, y, "b-", min_x, min_y, "ro")
+    plt.axis([-10, 10, -25, 100])
+
+    plt.text(0, 60, "Parabola\n$y = x^2$", fontsize=15, ha="center")
+    plt.text(min_x, min_y + 2, "Minima", ha="center")
+    plt.text(min_x, min_y - 6, "(%0.1f, %0.1f)" % (min_x, min_y), ha='center', color='gray')
+    plt.title("Annotated Plot")
+    plt.show()
+
+    # global formatting params
+    params = {'legend.fontsize': 'large',
+              'figure.figsize': (10, 10),
+             'axes.labelsize': 'large',
+             'axes.titlesize':'large',
+             'xtick.labelsize':'large',
+             'ytick.labelsize':'large'}
+
+    plt.rcParams.update(params)
